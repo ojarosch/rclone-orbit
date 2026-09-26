@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":dependencyDashboard", ":semanticCommits"],
+  "labels": ["dependencies"],
+  "timezone": "Europe/Berlin",
+  "schedule": ["before 6am on monday"],
+  "ignorePaths": ["testdata/**"],
+  "packageRules": [
+    {
+      "description": "Group non-breaking Go module updates into one PR",
+      "matchManagers": ["gomod"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "go dependencies (minor+patch)"
+    },
+    {
+      "description": "Group GitHub Actions updates into one PR",
+      "matchManagers": ["github-actions"],
+      "groupName": "github actions"
+    }
+  ]
+}
