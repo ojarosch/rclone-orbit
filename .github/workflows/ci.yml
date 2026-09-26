@@ -10,5 +10,3 @@ jobs:
     uses: ojarosch/github-actions/.github/workflows/go-ci.yml@v1
     permissions:
       contents: read
-    with:
-      run-golangci-lint: false
