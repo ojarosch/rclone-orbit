@@ -9,6 +9,9 @@ permissions:
   contents: read
   security-events: write
 
+env:
+  TRIVY_DISABLE_VEX_NOTICE: "true"
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -36,7 +39,7 @@ jobs:
       - name: gosec
         uses: securego/gosec@master
         with:
-          args: -exclude=G204,G304,G301,G306 ./...
+          args: ./...
       - name: Trivy filesystem scan
         uses: aquasecurity/trivy-action@master
         with:
