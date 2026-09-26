@@ -1,0 +1,13 @@
+name: Dependency Freshness
+
+on:
+  schedule:
+    - cron: "41 5 * * *"
+  workflow_dispatch:
+
+jobs:
+  dependency-freshness:
+    uses: ojarosch/github-actions/.github/workflows/go-dependency-freshness.yml@v1
+    permissions:
+      contents: read
+      issues: write
