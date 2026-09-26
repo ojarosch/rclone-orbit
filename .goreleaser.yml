@@ -1,0 +1,72 @@
+version: 2
+
+project_name: rclone-orbit
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: rclone-orbit
+    main: ./cmd/rclone-orbit
+    binary: rclone-orbit
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - id: default
+    ids:
+      - rclone-orbit
+    formats:
+      - tar.gz
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64{{ else }}{{ .Arch }}{{ end }}
+    files:
+      - README.md
+      - LICENSE*
+
+checksum:
+  name_template: checksums.txt
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  use: github
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+
+release:
+  mode: append
+
+brews:
+  - name: rclone-orbit
+    repository:
+      owner: ojarosch
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    directory: Formula
+    homepage: https://github.com/ojarosch/rclone-orbit
+    description: Rclone-backed rclone orbit daemon with TUI setup
+    license: MIT
+    install: |
+      bin.install "rclone-orbit"
+    dependencies:
+      - name: rclone
+      - name: fswatch
+        type: optional
+    test: |
+      system "#{bin}/rclone-orbit", "doctor"

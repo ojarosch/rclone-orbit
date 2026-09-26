@@ -1,0 +1,13 @@
+[Unit]
+Description=Rclone Orbit rclone sync watcher
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/Documents/Repos/rclone-orbit/bin/rclone_orbit.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
