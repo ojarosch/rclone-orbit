@@ -1,50 +1,12 @@
-name: ci
+name: CI
 
 on:
   pull_request:
   push:
     branches: [main]
 
-permissions:
-  contents: read
-  security-events: write
-
-env:
-  TRIVY_DISABLE_VEX_NOTICE: "true"
-
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
-        with:
-          go-version-file: go.mod
-          cache: true
-      - name: Go fmt
-        run: test -z "$(gofmt -l .)"
-      - name: Go vet
-        run: go vet ./...
-      - name: Go test
-        run: go test ./...
-      - name: ShellCheck
-        uses: ludeeus/action-shellcheck@master
-        with:
-          scandir: .
-      - name: govulncheck
-        uses: golang/govulncheck-action@v1
-        with:
-          go-version-file: go.mod
-          go-package: ./...
-      - name: gosec
-        uses: securego/gosec@master
-        with:
-          args: ./...
-      - name: Trivy filesystem scan
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: fs
-          scan-ref: .
-          severity: CRITICAL,HIGH
-          ignore-unfixed: true
-          exit-code: "1"
+  ci:
+    uses: ojarosch/github-actions/.github/workflows/go-ci.yml@v1
+    permissions:
+      contents: read

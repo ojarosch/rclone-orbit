@@ -1,0 +1,15 @@
+name: Security
+
+on:
+  pull_request:
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+jobs:
+  security:
+    uses: ojarosch/github-actions/.github/workflows/go-security.yml@v1
+    permissions:
+      contents: read
+      security-events: write
+      issues: write

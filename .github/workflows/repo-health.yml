@@ -1,0 +1,12 @@
+name: Repo Health
+
+on:
+  schedule:
+    - cron: "23 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  repo-health:
+    uses: ojarosch/github-actions/.github/workflows/repo-health.yml@v1
+    permissions:
+      contents: read
