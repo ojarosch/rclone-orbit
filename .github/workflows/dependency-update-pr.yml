@@ -1,0 +1,14 @@
+name: Dependency Update PR
+
+on:
+  schedule:
+    - cron: "12 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  dependency-update-pr:
+    uses: ojarosch/github-actions/.github/workflows/go-dependency-update-pr.yml@v1
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
