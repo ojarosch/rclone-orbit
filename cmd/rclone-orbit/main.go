@@ -6,10 +6,10 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/charmbracelet/bubbles/spinner"
-	"github.com/charmbracelet/bubbles/textinput"
-	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/bubbles/v2/spinner"
+	"charm.land/bubbles/v2/textinput"
+	tea "charm.land/bubbletea/v2"
+	"charm.land/lipgloss/v2"
 	"github.com/ojarosch/rclone-orbit/internal/app"
 )
 
@@ -240,9 +240,9 @@ func yes(s string) bool {
 	return s == "" || s == "y" || s == "yes" || s == "true" || s == "1"
 }
 
-func (m model) View() string {
+func (m model) View() tea.View {
 	if m.done {
-		return okStyle.Render(m.msg) + "\n"
+		return tea.NewView(okStyle.Render(m.msg) + "\n")
 	}
 	var b strings.Builder
 	b.WriteString(title.Render("rclone-orbit setup") + "\n\n")
@@ -275,7 +275,7 @@ func (m model) View() string {
 		}
 	}
 	b.WriteString("\n" + help.Render("tab/down next • up previous • ←/→ choose/presets • enter install on final field • esc quit") + "\n")
-	return b.String()
+	return tea.NewView(b.String())
 }
 
 func main() {
