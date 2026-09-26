@@ -10,3 +10,4 @@ permissions:
 jobs:
   auto-patch-release:
     uses: ojarosch/github-actions/.github/workflows/auto-patch-release.yml@v1
+    secrets: inherit
