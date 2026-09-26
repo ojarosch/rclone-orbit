@@ -1,0 +1,14 @@
+name: Auto-merge Dependencies
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, ready_for_review]
+
+jobs:
+  auto-merge-dependencies:
+    uses: ojarosch/github-actions/.github/workflows/auto-merge-dependency-pr.yml@v1
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: read
+      statuses: read
