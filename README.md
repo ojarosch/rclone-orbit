@@ -4,13 +4,19 @@
 
 The Go binary handles setup, checks, and service generation. The long-running service is still a plain shell script, generated from embedded templates, so it stays easy to inspect and debug.
 
-## Install from source
+## Install
+
+```sh
+brew tap ojarosch/tap
+brew trust ojarosch/tap
+brew install rclone-orbit
+```
+
+From source:
 
 ```sh
 go install github.com/ojarosch/rclone-orbit/cmd/rclone-orbit@latest
 ```
-
-Homebrew packaging is configured through GoReleaser for `ojarosch/homebrew-tap`.
 
 ## Commands
 
